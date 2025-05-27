@@ -1,25 +1,27 @@
-/* Base Reset */
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { height: 100%; }
-
-/* Fonts & Aesthetic Base */
-body {
+/* ----------------------------------------
+   Base Reset & Global Styles
+---------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+  overflow-x: hidden;
   font-family: 'Helvetica Neue', sans-serif;
   color: #eee;
-  overflow-x: hidden;
+}
+body {
+  position: relative;
   background-size: cover;
   background-attachment: fixed;
   transition: background 1s ease-in-out;
-  position: relative;
 }
 
-figure img {
-  width: 100%;        /* fill the figure’s width */
-  height: 200px;      /* or whatever fixed height you want */
-  object-fit: cover;  /* crop/scale to fill without distorting */
-  border-radius: 6px;
-}
-
+/* ----------------------------------------
+   Noise Overlay
+---------------------------------------- */
 body::before {
   content: "";
   position: fixed;
@@ -30,26 +32,41 @@ body::before {
   pointer-events: none;
 }
 
-/* Page-specific backgrounds */
-body.home     { background: url('../images/bg-home.jpg') center/cover no-repeat fixed; }
-body.sophomore { background: url('../images/bg-sophomore.jpg') center/cover no-repeat fixed; }
-body.junior    { background: url('../images/bg-junior.jpg') center/cover no-repeat fixed; }
-body.senior    { background: url('../images/bg-senior.jpg') center/cover no-repeat fixed; }
-body.now       { background: url('../images/bg-now.jpg') center/cover no-repeat fixed; }
+/* ----------------------------------------
+   Page-Specific Backgrounds
+---------------------------------------- */
+body.home       { background: url('../images/bg-home.jpg')       center/cover no-repeat fixed; }
+body.sophomore  { background: url('../images/bg-sophomore.jpg')  center/cover no-repeat fixed; }
+body.junior     { background: url('../images/bg-junior.jpg')     center/cover no-repeat fixed; }
+body.senior     { background: url('../images/bg-senior.jpg')     center/cover no-repeat fixed; }
+body.now        { background: url('../images/bg-now.jpg')        center/cover no-repeat fixed; }
 
+/* ----------------------------------------
+   Parallax Container
+---------------------------------------- */
+.parallax {
+  position: absolute;
+  top: 0; left: 0;
+  width: 120%; height: 120%;
+  transform: translate(-10%, -10%);
+  background: inherit;
+  background-size: cover;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ----------------------------------------
+   Overlay & Layout
+---------------------------------------- */
 .overlay {
+  position: relative;
+  z-index: 2;
   background: rgba(20,20,40,0.6);
   backdrop-filter: blur(8px);
-  min-height: 100%;
   display: flex;
   flex-direction: column;
-  z-index: 3;
-  position: relative;
+  min-height: 100%;
   animation: fadeIn 1.5s ease;
-}
-.intro {
-  text-align: center;
-  /* ... */
 }
 
 @keyframes fadeIn {
@@ -57,15 +74,10 @@ body.now       { background: url('../images/bg-now.jpg') center/cover no-repeat 
   to   { opacity: 1; transform: scale(1); }
 }
 
-/* Centered Title */
-h1, h2 {
-  text-align: center;
-  margin: 2rem 0;
-  letter-spacing: 0.1em;
-  text-shadow: 0 0 8px rgba(255,255,255,0.2);
-}
-
-/* Navigation */
+/* ----------------------------------------
+   Header & Navigation
+---------------------------------------- */
+header { flex: 0; }
 nav {
   display: flex;
   gap: 2rem;
@@ -82,75 +94,147 @@ nav a {
   font-size: 1.1rem;
   transition: color 0.3s;
 }
-nav a:hover, nav a.active {
+nav a:hover,
+nav a.active {
   color: #fff;
   border-bottom: 2px solid #fff;
 }
 
-/* Artifacts layout */
+/* ----------------------------------------
+   Main Content
+---------------------------------------- */
+main {
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: 2rem;
+}
+
+/* ----------------------------------------
+   Headings
+---------------------------------------- */
+h1, h2 {
+  text-align: center;
+  margin: 2rem 0;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px rgba(255,255,255,0.2);
+}
+
+/* ----------------------------------------
+   Intro (Homepage)
+---------------------------------------- */
+.intro {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+.profile-pic {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+.contact {
+  margin-bottom: 2rem;
+}
+.contact a {
+  color: #aab;
+  text-decoration: none;
+}
+.contact a:hover {
+  color: #fff;
+}
+
+/* ----------------------------------------
+   Artifacts Section
+---------------------------------------- */
+.artifacts {
+  max-width: 960px;
+  margin: 0 auto;
+}
 .artifacts ul {
   display: flex;
   flex-direction: column;
   gap: 3rem;
+  padding: 0 2rem;
+}
+.artifacts li {
+  background: rgba(30,30,60,0.8);
   padding: 2rem;
-  max-width: 960px;
-  margin: 0 auto;
+  border-radius: 12px;
+}
+/* ----------------------------------------
+   Figcaption / Artifact Caption Styling
+---------------------------------------- */
+.artifacts figure figcaption,
+.artifact-caption {
+  display: block;
+  font-size: 1.1rem;        /* slightly larger text */
+  line-height: 1.6;         /* more breathing room between lines */
+  color: #ddd;              /* light gray for contrast */
+  margin-top: 0.75rem;      /* space above caption */
+  padding: 0 1rem;          /* horizontal padding inside the figure */
+  text-align: left;         /* left-align for readability */
 }
 
-.artifacts li {
-    background: rgba(30,30,60,0.8);
-    padding: 2rem;
-    border-radius: 12px;
-    opacity: 1;              /* always visible */
-    transform: none;         /* no hidden offset */
-    transition: none;        /* no scroll animation */
-  }
-  
+/* Optional: add a subtle top border to separate media from caption */
+.artifacts figure figcaption {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 0.75rem;
+}
 
+/* Ensure figure expands with content */
+.artifacts figure {
+  width: 100%;
+  margin: 0 0 1rem;
+  overflow: visible;
+}
+
+/* Artifact Title */
 .artifact-title {
   font-size: 1.5rem;
   margin-bottom: 1rem;
   text-align: center;
 }
 
-/* In css/style.css, replace your .artifact-media block with: */
 .artifact-media {
   display: flex;
-  gap: 1rem;
   flex-wrap: wrap;
+  gap: 1rem;
   justify-content: center;
-  align-items: center;  /* vertically center smaller images */
 }
 
 .artifact-media img,
 .artifact-media video {
-  /* up to 300px wide, up to 200px tall */
-  max-width: 300px;
-  max-height: 200px;
-
-  /* preserve original aspect ratio */
-  width: auto;
-  height: auto;
-
-  /* center inside its flex cell */
-  margin: 0 auto;
-
-  /* optional rounded corners */
+  /* always scale down to at most the container width */
+  width: 100%;
+  max-width: 400px;    /* ← adjust this max-width as needed */
+  height: auto;        /* preserve aspect ratio */
+  object-fit: contain; /* ensure no cropping */
   border-radius: 6px;
+  transition: transform 0.3s, filter 0.3s;
 }
 
-
-.artifact-media img:hover, .artifact-media video:hover {
-  transform: scale(1.05);
-  filter: brightness(1.1) blur(1px);
+/* Optional: make very large figures scrollable */
+.artifacts figure {
+  overflow: hidden;
 }
+.artifact-media img:hover,
+.artifact-media video:hover {
+  transform: scale(1.02);
+  filter: brightness(1.1);
+}
+
+/* Artifact Caption */
 .artifact-caption {
   margin-top: 1rem;
   font-size: 1rem;
   line-height: 1.6;
+  text-align: left;
 }
 
-/* Modal */
+/* ----------------------------------------
+   Modal (Lightbox)
+---------------------------------------- */
 .modal {
   display: none;
   position: fixed;
@@ -175,3 +259,14 @@ nav a:hover, nav a.active {
   z-index: 100;
 }
 
+/* ----------------------------------------
+   Dust Particles Canvas
+---------------------------------------- */
+canvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
