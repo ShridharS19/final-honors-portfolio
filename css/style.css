@@ -13,6 +13,13 @@ body {
   position: relative;
 }
 
+figure img {
+  width: 100%;        /* fill the figure’s width */
+  height: 200px;      /* or whatever fixed height you want */
+  object-fit: cover;  /* crop/scale to fill without distorting */
+  border-radius: 6px;
+}
+
 body::before {
   content: "";
   position: fixed;
@@ -106,20 +113,33 @@ nav a:hover, nav a.active {
   text-align: center;
 }
 
+/* In css/style.css, replace your .artifact-media block with: */
 .artifact-media {
   display: flex;
-  gap: 1.2rem;
+  gap: 1rem;
   flex-wrap: wrap;
   justify-content: center;
+  align-items: center;  /* vertically center smaller images */
 }
-.artifact-media img, .artifact-media video {
-  max-width: 100%;
-  max-height: 300px;
+
+.artifact-media img,
+.artifact-media video {
+  /* up to 300px wide, up to 200px tall */
+  max-width: 300px;
+  max-height: 200px;
+
+  /* preserve original aspect ratio */
+  width: auto;
+  height: auto;
+
+  /* center inside its flex cell */
+  margin: 0 auto;
+
+  /* optional rounded corners */
   border-radius: 6px;
-  transition: transform 0.3s, filter 0.3s;
-  cursor: pointer;
-  filter: brightness(0.9) contrast(1.1);
 }
+
+
 .artifact-media img:hover, .artifact-media video:hover {
   transform: scale(1.05);
   filter: brightness(1.1) blur(1px);
